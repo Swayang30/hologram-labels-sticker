@@ -609,8 +609,10 @@ strong { font-weight: 600; }
    -------------------------------------------------------------------------- */
 .lp-security { background: var(--lp-bg); }
 .lp-security__inner { padding-top: 40px; padding-bottom: 40px; }
-.lp-security__media { height: 200px; border-radius: var(--lp-radius-lg); overflow: hidden; margin-bottom: 18px; }
-.lp-security__media img, .lp-security__media picture { width: 100%; height: 100%; object-fit: cover; }
+/* No fixed height: the box takes the photo's own aspect ratio so nothing is cropped (magnified callouts sit near the edges). */
+.lp-security__media { border-radius: var(--lp-radius-lg); overflow: hidden; margin-bottom: 18px; }
+.lp-security__media picture { display: block; }
+.lp-security__media img { display: block; width: 100%; height: auto; }
 .lp-security__lede { font-size: 14px; line-height: 1.6; color: var(--lp-ink-3); margin-top: 12px; text-wrap: pretty; }
 .lp-security__list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
 .lp-security__list li { display: flex; gap: 10px; font-size: 14px; color: var(--lp-ink); }
@@ -618,13 +620,13 @@ strong { font-weight: 600; }
 
 @media (min-width: 768px) {
   .lp-security__inner { padding-top: 60px; padding-bottom: 60px; }
-  .lp-security__media { height: 320px; margin-bottom: 24px; }
+  .lp-security__media { margin-bottom: 24px; }
   .lp-security__lede { font-size: 15px; line-height: 1.65; margin-top: 18px; }
   .lp-security__list { grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-top: 24px; }
 }
 @media (min-width: 1024px) {
   .lp-security__inner { padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-  .lp-security__media { height: 420px; margin-bottom: 0; }
+  .lp-security__media { margin-bottom: 0; }
   .lp-security .lp-h2 { font-size: 36px; }
 }
 
@@ -867,7 +869,7 @@ body.lp-keyboard-open .lp-actionbar { display: none; }
   background-position: center, center;
   background-size: 48px 48px, cover;
 }
-.lp-ph--security { background-size: 72px 72px, cover; }
+.lp-ph--security { aspect-ratio: 4 / 3; background-size: 72px 72px, cover; }
 .lp-ph--figure { aspect-ratio: 460 / 287; max-width: 460px; border-radius: 6px; }   /* core-block product slot */
 
 /* GTM noscript iframe (kept out of the markup as an inline style) */

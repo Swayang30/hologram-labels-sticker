@@ -4,7 +4,8 @@ Deploys to **https://www.holoflex.com/hologram_labels/**
 Server folder: `/home/holoflex/public_html/hologram_labels/`
 
 Content swap of the approved Self-Adhesive Labels build. Same design, layout,
-CSS, JS, PHP endpoint and Apps Script integration. Built 2026-09-10. Not deployed.
+CSS, JS, PHP endpoint and Apps Script integration. Built 2026-09-10; product
+photography added and the security-block crop fixed later the same day. Not deployed.
 
 ## 1. Upload these (and nothing else) to `/hologram_labels/`
 
@@ -24,14 +25,29 @@ CSS, JS, PHP endpoint and Apps Script integration. Built 2026-09-10. Not deploye
 | `images/lp-holoflex-logo-128.png` / `.webp` | Header logo 2x |
 | `images/lp-holoflex-logo-footer-80.jpg` / `.webp` | Footer logo 1x |
 | `images/lp-holoflex-logo-footer-160.jpg` / `.webp` | Footer logo 2x |
+| `images/img1.jpeg` | Core block figure (1600×800, single file — see section 4) |
+| `images/img2.jpeg` | Security block photo (1600×800, single file — see section 4) |
+| `images/lp-app-pharma-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-pharma-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
+| `images/lp-app-automotive-spares-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-automotive-spares-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
+| `images/lp-app-agrochemicals-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-agrochemicals-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
+| `images/lp-app-electricals-appliances-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-electricals-appliances-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
+| `images/lp-app-liquor-beverage-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-liquor-beverage-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
+| `images/lp-app-certificates-documents-400.jpg` / `.webp` | Gallery photo 1x (400×267) |
+| `images/lp-app-certificates-documents-800.jpg` / `.webp` | Gallery photo 2x (800×534) |
 
-Total: 18 files. Keep the folder structure exactly as above — every path in
-the HTML, CSS and JS is relative to `/hologram_labels/`.
+Total: 44 files, 1,555 KB on disk. Keep the folder structure exactly as above —
+every path in the HTML, CSS and JS is relative to `/hologram_labels/`.
 
-No product photography ships with this build (see section 4); the page renders
-neutral placeholder tiles until the photos arrive.
+Page weight for a WebP-capable browser, third-party GTM script excluded:
+726 KB at 1x (HTML, CSS, JS, fonts and logos 172 KB; core and security photos
+464 KB; six gallery tiles 90 KB) and 923 KB at 2x (gallery tiles 277 KB).
 
-**Do NOT upload:** `_source/` (Vercel preview copy) or this manifest.
+**Do NOT upload:** `_source/` (Vercel preview copy and photo originals) or this manifest.
 
 ## 2. What changed in `submit-enquiry.php` vs Self-Adhesive Labels
 
@@ -106,8 +122,8 @@ and verbatim on all three pages. British spelling throughout.
 
 ## 3. Post-upload checks
 
-1. Open `https://www.holoflex.com/hologram_labels/` — fonts, logos and the
-   placeholder tiles render; the header nav anchors (`#authentication`,
+1. Open `https://www.holoflex.com/hologram_labels/` — fonts, logos and all
+   eight photographs render; the header nav anchors (`#authentication`,
    `#security`, `#applications`, `#why-holoflex`, `#faq`, `#enquiry-footer`)
    all scroll.
 2. Submit a test enquiry from the hero form and one from the footer form.
@@ -120,29 +136,39 @@ and verbatim on all three pages. British spelling throughout.
 3. Append `?gclid=test&utm_source=google&utm_campaign=hol-test` to the URL,
    submit, and confirm the campaign columns populate.
 
-## 4. Photography still needed (placeholder slots)
+## 4. Photography
 
-Every product image slot renders a neutral `.lp-ph` tile with the final
-`<picture>` markup commented in beside it. To drop a photo in: add the files
-below to `images/`, delete the `.lp-ph` div and uncomment the `<picture>`.
-The 1x file must be ≤ the size shown; the 2x file may be roughly double.
-Supply JPG + WebP for each.
+**Gallery (added 2026-09-10).** All six application tiles are in place. Each
+original (1536×1024, in `_source/assets/`) was centre-cropped to 3:2 and saved
+at 400×267 (≤25 KB) and 800×534 (≤60 KB), JPG + WebP, `lp-` prefixed, lazy-loaded.
 
-| Slot | Files (JPG + WebP each) | Size (1x / 2x) | Subject |
+| Tile | Original | Output stem |
+|---|---|---|
+| Pharmaceutical | `lp-app-pharmaceutical.jpg` | `lp-app-pharma` |
+| Automotive Spares | `lp-app-automotive.jpg` | `lp-app-automotive-spares` |
+| Agrochemicals | `lp-app-agrochemicals.jpg` | `lp-app-agrochemicals` |
+| Electricals & Appliances | `lp-app-electricals.jpg` | `lp-app-electricals-appliances` |
+| Liquor & Beverage | `lp-app-liquor.jpg` | `lp-app-liquor-beverage` |
+| Certificates & Documents | `lp-app-certificates.jpg` | `lp-app-certificates-documents` |
+
+**Core block figure and security block (added 2026-09-10).** These two slots
+carry `images/img1.jpeg` and `images/img2.jpeg` (1600×800, ~235 KB each) as
+single un-optimised files, not the `lp-` WebP + JPEG pairs the commented-in
+`<picture>` markup expects. They render correctly; converting them to
+`lp-hologram-features-460/-920` and `lp-security-600/-1200` would cut roughly
+350 KB from the page. The commented `<picture>` blocks are still in the HTML
+for that swap.
+
+**Security block crop fix (2026-09-10).** `.lp-security__media` no longer has a
+fixed height at any breakpoint; the box takes the photo's own aspect ratio, so
+callouts near the photo's edges are never cropped. The same change was applied
+to the Garment Tags and Self-Adhesive Labels builds.
+
+**Still open.**
+
+| Slot | Files | Size | Subject |
 |---|---|---|---|
-| Core block figure | `lp-hologram-features-460`, `-920` | 460×287 / 920×574, ≤60 KB | Security hologram label on a carton: overt colour-shift beside a covert element under a decoding film |
-| Security block | `lp-security-600`, `-1200` | 600×450 / 1200×900, ≤80 KB | Tamper-evident hologram label partly lifted to show the VOID pattern, with a serial number and QR code |
-| Gallery: Pharmaceutical | `lp-app-pharma-400`, `-800` | 400×267 / 800×534, ≤25 KB | Hologram label on a pharma carton beside a blister strip |
-| Gallery: Automotive Spares | `lp-app-automotive-spares-400`, `-800` | 400×267 / 800×534, ≤25 KB | Hologram label on a spare-parts box with a warranty seal |
-| Gallery: Agrochemicals | `lp-app-agrochemicals-400`, `-800` | 400×267 / 800×534, ≤25 KB | Hologram label on an agrochemical drum beside a can and a sachet |
-| Gallery: Electricals & Appliances | `lp-app-electricals-appliances-400`, `-800` | 400×267 / 800×534, ≤25 KB | Hologram warranty seal on an appliance carton |
-| Gallery: Liquor & Beverage | `lp-app-liquor-beverage-400`, `-800` | 400×267 / 800×534, ≤25 KB | Hologram label across the cap and neck of a bottle |
-| Gallery: Certificates & Documents | `lp-app-certificates-documents-400`, `-800` | 400×267 / 800×534, ≤25 KB | Security hologram on a certificate beside an ID pass and a licence |
 | Hero background (optional) | `lp-hero-holograms-1600.jpg` via `.lp-hero__bg` in the CSS | ≤200 KB | Macro of a security hologram on a pack or reel |
-
-The security-block CSS box cover-crops, so a native 3:2 photo (600×400 /
-1200×800) also works there, as it did on the Self-Adhesive Labels build. If a
-3:2 file is used, change the `<img>` `height` attribute to match.
 
 ## 5. Vercel preview copy
 
@@ -150,6 +176,8 @@ The security-block CSS box cover-crops, so a native 3:2 photo (600×400 /
 pages: root-absolute paths, Google Tag Manager removed, `[PREVIEW]` in the
 titles, `noindex, nofollow` plus an `X-Robots-Tag` header from `vercel.json`,
 and the forms validate but do not submit (they show a notice instead). It
-contains no PHP. Push that folder to its own GitHub repo and import it into
+contains no PHP. Regenerated from production on 2026-09-10, so it carries the
+current copy, all eight photographs and the security-block crop fix; the only
+differences from production are the transformations listed above. Push that folder to its own GitHub repo and import it into
 Vercel as a static project, as was done for the Garment Tags and Self-Adhesive
 Labels previews. Not deployed yet.
