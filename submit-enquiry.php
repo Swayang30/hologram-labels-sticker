@@ -27,7 +27,7 @@ declare(strict_types=1);
    ========================================================================== */
 
 /** Where the lead emails go. Comma-separate for more than one recipient. */
-define('LP_RECIPIENT_EMAIL', 'holoflex@gmail.com, plandleadtest@gmail.com');
+define('LP_RECIPIENT_EMAIL', 'enquiry@holoflex.com, plandleadtest@gmail.com');
 
 /** The From address on lead emails. Should be a mailbox on the sending domain
  *  so SPF/DMARC pass. Reply-To is set to the enquirer's email when provided. */
