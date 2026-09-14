@@ -42,7 +42,7 @@
   /* Brand */
   --lp-navy:        #221b5b;   /* primary brand navy: headings, links, badges */
   --lp-navy-deep:   #16123f;   /* hero + closing band background */
-  --lp-navy-footer: #0f0c2e;   /* footer background */
+  --lp-navy-footer: #0f0c2e;   /* (unused since footer went white) */
   --lp-red:         #d81f26;   /* primary CTA + eyebrows */
   --lp-red-hover:   #c11a20;
   --lp-red-shadow:  #a8151b;   /* 2px hard shadow under red buttons */
@@ -137,7 +137,7 @@ strong { font-weight: 600; }
 .lp-hero :focus-visible,
 .lp-closing :focus-visible,
 .lp-band--dark :focus-visible,
-.lp-footer :focus-visible { outline-color: var(--lp-white); }
+.lp-footer :focus-visible { outline-color: var(--lp-navy); }
 .lp-card :focus-visible { outline-color: var(--lp-navy); }
 
 /* Skip link */
@@ -609,10 +609,9 @@ strong { font-weight: 600; }
    -------------------------------------------------------------------------- */
 .lp-security { background: var(--lp-bg); }
 .lp-security__inner { padding-top: 40px; padding-bottom: 40px; }
-/* No fixed height: the box takes the photo's own aspect ratio so nothing is cropped (magnified callouts sit near the edges). */
-.lp-security__media { border-radius: var(--lp-radius-lg); overflow: hidden; margin-bottom: 18px; }
+.lp-security__media { aspect-ratio: 3 / 4; border-radius: var(--lp-radius-lg); overflow: hidden; margin-bottom: 18px; }
 .lp-security__media picture { display: block; }
-.lp-security__media img { display: block; width: 100%; height: auto; }
+.lp-security__media img { display: block; width: 100%; height: 100%; object-fit: cover; }   /* img2.jpg is 3:4, so it fills the frame with no crop */
 .lp-security__lede { font-size: 14px; line-height: 1.6; color: var(--lp-ink-3); margin-top: 12px; text-wrap: pretty; }
 .lp-security__list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
 .lp-security__list li { display: flex; gap: 10px; font-size: 14px; color: var(--lp-ink); }
@@ -626,7 +625,7 @@ strong { font-weight: 600; }
 }
 @media (min-width: 1024px) {
   .lp-security__inner { padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-  .lp-security__media { margin-bottom: 0; }
+  .lp-security__media { margin-bottom: 0; max-width: 460px; justify-self: center; }
   .lp-security .lp-h2 { font-size: 36px; }
 }
 
@@ -765,30 +764,30 @@ strong { font-weight: 600; }
 /* --------------------------------------------------------------------------
    14. FOOTER
    -------------------------------------------------------------------------- */
-.lp-footer { background: var(--lp-navy-footer); color: var(--lp-lavender); font-size: 13px; }
+.lp-footer { background: var(--lp-white); color: var(--lp-ink-3); font-size: 13px; border-top: 1px solid var(--lp-line); }
 .lp-footer > .lp-container { padding-top: 32px; padding-bottom: 24px; }
 .lp-footer__grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 .lp-footer__logo { height: 64px; width: auto; border-radius: var(--lp-radius); }
 .lp-footer__brand p { margin-top: 16px; line-height: 1.55; }
-.lp-footer__heading { font-size: 12px; font-weight: 600; color: var(--lp-white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.lp-footer__heading { font-size: 12px; font-weight: 600; color: var(--lp-navy); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
 .lp-footer__linkcols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
 .lp-footer__linkcols ul { display: flex; flex-direction: column; gap: 8px; }
-.lp-footer a { color: var(--lp-lavender); }
-.lp-footer a:hover { color: var(--lp-white); }
+.lp-footer a { color: var(--lp-ink-3); }
+.lp-footer a:hover { color: var(--lp-navy); }
 .lp-footer__contact address { line-height: 1.6; }
-.lp-footer__contact strong { display: block; color: var(--lp-white); }
-.lp-footer__contact a { color: var(--lp-white); }
+.lp-footer__contact strong { display: block; color: var(--lp-navy); }
+.lp-footer__contact a { color: var(--lp-navy); }
 .lp-footer__reg { margin-top: 12px; }
 .lp-social { display: flex; gap: 10px; }
 .lp-social a {
-  width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25);
-  display: inline-flex; align-items: center; justify-content: center; color: var(--lp-white);
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--lp-field-line);
+  display: inline-flex; align-items: center; justify-content: center; color: var(--lp-navy);
 }
-.lp-social a:hover { border-color: var(--lp-white); }
+.lp-social a:hover { border-color: var(--lp-navy); }
 .lp-footer__bottom {
-  border-top: 1px solid rgba(255,255,255,.12); margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid var(--lp-line); margin-top: 24px; padding-top: 20px;
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: 11px; color: var(--lp-lavender-3);
+  font-size: 11px; color: var(--lp-muted);
 }
 .lp-footer__bottom span:last-child { display: none; }
 
